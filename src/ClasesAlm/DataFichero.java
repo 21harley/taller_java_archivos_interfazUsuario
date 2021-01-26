@@ -55,7 +55,7 @@ public class DataFichero {
     public void updateData(ArrayList<Articulo> lista,int pos){
         try {
             if(pos>ruta.length){
-                System.out.println("Ruta fuera de rango update");
+                //System.out.println("Ruta fuera de rango update");
                 return ;
             }
             
@@ -81,7 +81,7 @@ public class DataFichero {
         ArrayList<Articulo> lista = new ArrayList<Articulo>();
         try {
             if(pos>ruta.length){
-                System.out.println("Ruta fuera de rango Select");
+                //System.out.println("Ruta fuera de rango Select");
                 return null;
             }
 
@@ -97,7 +97,7 @@ public class DataFichero {
                 e.printStackTrace();
             }catch(IOException e){
                  //e.printStackTrace();
-                 System.out.println("no hay datos en "+ruta[pos]);
+                 //System.out.println("no hay datos en "+ruta[pos]);
             }catch(ClassNotFoundException e){
                 e.printStackTrace();
             }

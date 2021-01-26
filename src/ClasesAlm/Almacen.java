@@ -27,7 +27,7 @@ public class Almacen {
         if(res==0){
             listaA.add(a); registro.updateData(listaA, 0);
         }else{
-            System.out.println("Articulo ya fue registrado");
+            //System.out.println("Articulo ya fue registrado");
         }
         
     }

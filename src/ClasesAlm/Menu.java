@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -183,9 +184,10 @@ public class Menu {
         btnReporteArticulo.setBounds(60, 290, 150, 30);
         panel.add(btnReporteArticulo);
 
-        JLabel lblConsulteModifiqueO = new JLabel("Buenos dias que operacion va hacer?");
-        lblConsulteModifiqueO.setBounds(41, 51, 414, 30);
-        panel.add(lblConsulteModifiqueO);
+        JLabel titilo = new JLabel("Centro Agropecuario");
+        titilo.setBounds(70, 10, 414, 60);
+        titilo.setFont(new Font("Serif", Font.PLAIN, 40));
+        panel.add(titilo);
         
     }
     private void agregar(int c) {
@@ -342,13 +344,13 @@ public class Menu {
                 try{
                     auxCost=Float.parseFloat(cost.getText());
                 }catch(NumberFormatException ex){
-                    System.out.println("Error al ingresar el costo"); err.add(3);
+                    /*System.out.println("Error al ingresar el costo");*/ err.add(3);
                 }
                 if(esta.getText().length()==0) err.add(4);                
                 try{
                     auxCant=Integer.parseInt(canti.getText());
                 }catch(NumberFormatException ex){
-                    System.out.println("Error al ingresar la cantidad"); err.add(5);
+                    /*System.out.println("Error al ingresar la cantidad");*/ err.add(5);
                 }
                 if(preg.getText().length()==0) err.add(6); 
                 
@@ -523,7 +525,7 @@ if(c==2){
                 try{
                     auxCant=Integer.parseInt(canti.getText());
                 }catch(NumberFormatException ex){
-                    System.out.println("Error al ingresar la cantidad"); err.add(3);
+                   /* System.out.println("Error al ingresar la cantidad");*/ err.add(3);
                 }
                 
                 String res="";
@@ -550,11 +552,9 @@ if(c==2){
                 }else{
                     /*cargo los datos del articulo*/
                     Articulo articulo=new Animal(nombre.getText(),codi.getText(),0,"",auxCant,"");
-                        System.out.println("Hola");
                         /*esta registrado?*/
                         /*Se revisa si ya se tiene el producto y si hay existencia*/
                         int resp=agro.existencia(articulo);
-                        System.out.println("Hola1");
                         if(resp!=0&&resp!=2){
                             
                             /*copio los datos del articulo en almacen*/
@@ -740,7 +740,7 @@ if(c==2){
                 
             }
         });
-        btnNewButton.setBounds(320, 20, 89, 20);
+        btnNewButton.setBounds(320, 20, 80, 20);
         frameDos.getContentPane().add(btnNewButton);
         
         JButton volverM = new JButton("Volver menu");
@@ -750,7 +750,7 @@ if(c==2){
                 frameDos.dispose();
             }
         });
-        volverM.setBounds(500,20, 89, 23);
+        volverM.setBounds(410,20, 80, 20);
         frameDos.getContentPane().add(volverM);
         
         frameDos.setVisible(true);
