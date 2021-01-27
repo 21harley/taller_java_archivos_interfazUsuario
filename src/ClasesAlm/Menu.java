@@ -142,7 +142,7 @@ public class Menu {
         JButton btnAgre = new JButton("Agregar");
         btnAgre.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                agregar(1);
+                agregar();
             }
         });
         btnAgre.setBounds(60, 90, 150, 30);
@@ -151,7 +151,7 @@ public class Menu {
         JButton btnModificar = new JButton("Comprar");
         btnModificar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                agregar(2);
+                comprar();
             }
         });
         btnModificar.setBounds(60, 140, 150, 30);
@@ -190,16 +190,12 @@ public class Menu {
         panel.add(titilo);
         
     }
-    private void agregar(int c) {
-        /*valor de c permite trabajar para agregar un articulo o compra*/
-        /* c=1 registro articulo */
-        /* c=2 registro compra*/
+    private void agregar() {
+
         frameDos = new JFrame();
-        if(c==1){
-            frameDos.setTitle("Ingrese Articulo");
-        }else if(c==2){
-            frameDos.setTitle("Ingrese compra de Articulo");
-        }
+        
+        frameDos.setTitle("Ingrese Articulo");
+        
         frameDos.setTitle("Ingrese Producto");
         frameDos.setBounds(450, 200, 500, 350);
         frameDos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -224,11 +220,8 @@ public class Menu {
         panel.setLayout(null);
         panel.setOpaque(false);//panel trasparente
         JLabel lblNewLabel=new JLabel();
-        if(c==1){
-           lblNewLabel = new JLabel("Introduce los datos del articulo: ");
-        }else if(c==2){
-            lblNewLabel = new JLabel("Introduce los datos de la compra: ");
-        }
+        lblNewLabel = new JLabel("Introduce los datos del articulo: ");
+        
         lblNewLabel.setForeground(Color.white);
         lblNewLabel.setBounds(20, 20, 204, 14);
         frameDos.getContentPane().add(lblNewLabel);
@@ -396,8 +389,6 @@ if(combo.getSelectedItem().equals("Vegetal")) articulo=new Vegetal(nombre.getTex
 if(combo.getSelectedItem().equals("Quimico")) articulo=new Quimico(nombre.getText(),
         codi.getText(),auxCost,esta.getText(),auxCant,preg.getText());
     
-  /*registrar producto*/
-if(c==1){
      /*Se revisa si ya se tiene el producto*/
     if(agro.existencia(articulo)==0){
          /*Agrego articulo a almacen*/
@@ -409,14 +400,7 @@ if(c==1){
         /*respuesta de usuario negativa*/
         MessageDialog a =new MessageDialog(3,res);
     }
-}
- /*comprar producto*/
-if(c==2){
-         agro.compra(articulo);
-        /*respuesta de usuario postiva*/
-         MessageDialog a =new MessageDialog(1,res); 
-}
- 
+
                 }//condicion si se cargo bien los datos
 
                 frameDos.dispose();
@@ -448,7 +432,7 @@ if(c==2){
         frameDos.setVisible(true);
         frame.setVisible(false);
     }
-    private void vender() {
+        private void vender() {
         frameDos = new JFrame();
         frameDos.setTitle("Vender Articulo");
         frameDos.setBounds(450, 200, 450, 300);
@@ -472,41 +456,30 @@ if(c==2){
         panel.setLayout(null);      
         panel.setOpaque(false);
 
-        JLabel lblNewLabel = new JLabel("Introduce los datos de la compra: ");
+        JLabel lblNewLabel = new JLabel("Introduce los datos de la venta: ");
         lblNewLabel.setForeground(Color.white);
         lblNewLabel.setBounds(40, 20, 204, 14);
         frameDos.getContentPane().add(lblNewLabel);
-
-        /*1-nombre--------*/
-        JLabel name = new JLabel("Nombre: ");
-        name.setForeground(Color.white);
-        name.setBounds(40, 40, 100, 14);
-        frameDos.getContentPane().add(name);
-        
-        nombre = new JTextField();
-        nombre.setBounds(130, 40, 100, 20);
-        frameDos.getContentPane().add(nombre);
-        nombre.setColumns(10);
-        
+     
         /*2-codigo--------*/
         JLabel codigo = new JLabel("Codigo: ");
         codigo.setForeground(Color.white);
-        codigo.setBounds(40, 70, 100, 14);
+        codigo.setBounds(40, 40, 100, 14);
         frameDos.getContentPane().add(codigo);
         
         codi = new JTextField();
-        codi.setBounds(130, 70, 100, 20);
+        codi.setBounds(130, 40, 100, 20);
         frameDos.getContentPane().add(codi);
         codi.setColumns(10);
         
         /*3-cantidad--------*/
         JLabel cantidad = new JLabel("Cantidad: ");
         cantidad.setForeground(Color.white);
-        cantidad.setBounds(40, 100, 100, 14);
+        cantidad.setBounds(40, 70, 100, 14);
         frameDos.getContentPane().add(cantidad);
         
         canti = new JTextField();
-        canti.setBounds(130, 100, 100, 20);
+        canti.setBounds(130, 70, 100, 20);
         frameDos.getContentPane().add(canti);
         canti.setColumns(10);
 
@@ -520,12 +493,11 @@ if(c==2){
                 ArrayList<Integer> err = new ArrayList();
                 
                 /*validar si existe los datos y si estan bien*/                
-                if(nombre.getText().length()==0) err.add(1);
-                if(codi.getText().length()==0) err.add(2);               
+                if(codi.getText().length()==0) err.add(1);               
                 try{
                     auxCant=Integer.parseInt(canti.getText());
                 }catch(NumberFormatException ex){
-                   /* System.out.println("Error al ingresar la cantidad");*/ err.add(3);
+                   /* System.out.println("Error al ingresar la cantidad");*/ err.add(1);
                 }
                 
                 String res="";
@@ -536,12 +508,9 @@ if(c==2){
                         for(Integer i:err){
                             switch(i){
                                 case 1:
-                                    res+="-Campo nombre vasio-";
-                                break;
-                                case 2:
                                     res+="-Campo codigo vasio-";
                                 break;
-                                case 3:
+                                case 2:
                                     res+="-Campo cantida invalida-";
                                 break;
                             }
@@ -571,7 +540,7 @@ if(c==2){
                                 venta = new Vegetal("","",0,"",0,((Vegetal) art).getKilaje());
                             }
                             /*registra todos los datos*/
-                            venta.setNombre(nombre.getText());
+                            venta.setNombre(art.getNombre());
                             venta.setCodigo(codi.getText());
                             /*cargo el costo de la compra*/
                             venta.setCosto(auxCant*art.getCosto());
@@ -581,6 +550,185 @@ if(c==2){
                             
                             /*Agrego articulo a registro venta*/
                             agro.venta(venta);
+                    
+                            /*respuesta de usuario postiva*/
+                            MessageDialog a =new MessageDialog(1,res);
+                        }else{
+                            /*respuesta de usuario negativa*/
+                            if(resp==0){
+                                MessageDialog a =new MessageDialog(4,res);
+                            }else{
+                                MessageDialog a =new MessageDialog(5,res);
+                            }
+                            
+                        }
+}//condicion si se cargo bien los datos
+
+                frameDos.dispose();
+            }
+        });
+        comprar.setBounds(330, 220, 89, 23);
+        frameDos.getContentPane().add(comprar);
+        
+        JButton limpiar = new JButton("Limpiar");
+        limpiar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                limpiarVenta();
+            }
+        });
+        limpiar.setBounds(40, 220, 89, 23);   
+        frameDos.getContentPane().add(limpiar);
+        
+        JButton volver = new JButton("Volver Menu");
+        volver.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               frame.setVisible(true);
+                frameDos.dispose();
+            }//actionfor
+        });
+        volver.setBounds(330, 40, 89, 23);        
+        frameDos.getContentPane().add(volver);
+        
+        frameDos.setVisible(true);
+        frame.setVisible(false);
+    }
+    private void comprar() {
+        frameDos = new JFrame();
+        frameDos.setTitle("Comprar Articulo");
+        frameDos.setBounds(450, 200, 450, 300);
+        frameDos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameDos.setContentPane(new FondoPanel());
+        frameDos.getContentPane().setLayout(null);
+        frameDos.setResizable(false);
+        
+        frameDos.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        frameDos.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                frame.setVisible(true);
+                frameDos.dispose();
+            }
+        });
+        
+        JPanel panel = new JPanel();
+        panel.setBounds(0, 0, 434, 1);
+        frameDos.getContentPane().add(panel);
+        panel.setLayout(null);      
+        panel.setOpaque(false);
+
+        JLabel lblNewLabel = new JLabel("Introduce los datos de la compra: ");
+        lblNewLabel.setForeground(Color.white);
+        lblNewLabel.setBounds(40, 20, 204, 14);
+        frameDos.getContentPane().add(lblNewLabel);
+       
+        /*1-codigo--------*/
+        JLabel codigo = new JLabel("Codigo: ");
+        codigo.setForeground(Color.white);
+        codigo.setBounds(40, 40, 100, 14);
+        frameDos.getContentPane().add(codigo);
+        
+        codi = new JTextField();
+        codi.setBounds(130, 40, 100, 20);
+        frameDos.getContentPane().add(codi);
+        codi.setColumns(10);
+        
+        /*2-cantidad--------*/
+        JLabel cantidad = new JLabel("Cantidad: ");
+        cantidad.setForeground(Color.white);
+        cantidad.setBounds(40, 70, 100, 14);
+        frameDos.getContentPane().add(cantidad);
+        
+        canti = new JTextField();
+        canti.setBounds(130, 70, 100, 20);
+        frameDos.getContentPane().add(canti);
+        canti.setColumns(10);
+        
+        /*3-costo--------*/
+        JLabel costo = new JLabel("Costo: ");
+        costo.setForeground(Color.white);
+        costo.setBounds(40, 100, 100, 14);
+        frameDos.getContentPane().add(costo);
+        
+        cost = new JTextField();
+        cost.setBounds(130, 100, 100, 20);
+        frameDos.getContentPane().add(cost);
+        cost.setColumns(10); 
+        
+        JButton comprar = new JButton("Registrar");
+        comprar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(true);
+                
+                float auxCost=0.0f;
+                int auxCant=0;
+                ArrayList<Integer> err = new ArrayList();
+                
+                /*validar si existe los datos y si estan bien*/                  
+                if(codi.getText().length()==0) err.add(1);               
+                try{
+                    auxCant=Integer.parseInt(canti.getText());
+                }catch(NumberFormatException ex){
+                   /* System.out.println("Error al ingresar la cantidad");*/ err.add(2);
+                }
+                try{
+                    auxCost=Float.parseFloat(cost.getText());
+                }catch(NumberFormatException ex){
+                   /* System.out.println("Error al ingresar la cantidad");*/ err.add(3);
+                }
+                
+                String res="";
+                if(err.size()>0){
+                    if(err.size()==3){
+                        res="Venta no valida";
+                    }else{
+                        for(Integer i:err){
+                            switch(i){
+                                case 1:
+                                    res+="-Campo codigo vasio-";
+                                break;
+                                case 2:
+                                    res+="-Campo cantida invalida-";
+                                break;
+                                case 3:
+                                    res+="-Campo costo invalido-";
+                                break;
+                            }
+                        }
+                    }
+                    /*respuesta negativa*/
+                    MessageDialog a =new MessageDialog(2,res);
+                }else{
+                    /*cargo los datos del articulo*/
+                    Articulo articulo=new Animal("",codi.getText(),0,"",auxCant,"");
+                        /*esta registrado?*/
+                        /*Se revisa si ya se tiene el producto*/
+                        int resp=agro.existencia(articulo);
+                        if(resp!=0){
+                            
+                            /*copio los datos del articulo en almacen*/
+                            Articulo art=agro.retornarProducto(codi.getText());
+                            /*estado incila*/
+                            Articulo compra=new Animal();
+                            if(art instanceof Animal){
+                                compra = new Animal("","",0,"",0,((Animal) art).getTipo());
+                            }
+                            if(art instanceof Quimico){
+                                compra = new Quimico("","",0,"",0,((Quimico) art).getFormulaQuimica());
+                            }
+                            if(art instanceof Vegetal){
+                                compra = new Vegetal("","",0,"",0,((Vegetal) art).getKilaje());
+                            }
+                            /*registra todos los datos*/
+                            compra.setNombre(art.getNombre());
+                            compra.setCodigo(codi.getText());
+                            /*cargo el costo de la compra*/
+                            compra.setCosto(auxCost);
+                            compra.setEstado(art.getEstado());
+                            /*guardo la cantidad carticulos vendidos*/
+                            compra.setCantidadArticulo(auxCant);
+                            
+                            /*Agrego articulo a registro venta*/
+                            agro.compra(compra);
                     
                             /*respuesta de usuario postiva*/
                             MessageDialog a =new MessageDialog(1,res);
@@ -653,6 +801,8 @@ if(c==2){
        
        /*genero tabla con los datos del registro*/
         frameDos.getContentPane().add( new Tabla(agro.getListaA()),BorderLayout.CENTER );
+        
+        
         frameDos.setBounds((pantalla.width-600)/2, (pantalla.height-600)/2, 600, 600);
         
         JButton volverM = new JButton("Volver menu");
